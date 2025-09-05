@@ -1,150 +1,161 @@
+# Mini ERP MVC v2.0 🚀
 
-We are going to create a README.md file for the project. The project is a Mini ERP system with Tkinter for the GUI and SQLite as the database, using the MVC pattern.
+Una aplicación de escritorio completa para la gestión empresarial desarrollada en Python con Tkinter, utilizando el patrón MVC (Modelo-Vista-Controlador) y SQLite como base de datos.
 
-Since the user mentioned they removed the PedidosController and its view and took it out of the main for now, we will focus on the existing structure.
+## ✨ Novedades en v2.0
 
-The README should include:
+- 🎯 **Sistema completo de ERP**: Clientes, Productos, Pedidos y Ventas
+- 🗑️ **Eliminación masiva**: Botones "Eliminar Todos" con confirmaciones de seguridad
+- 🔄 **Actualización en tiempo real**: Los dropdowns se actualizan automáticamente
+- 🔄 **Botón de reinicio**: Reinicia la aplicación sin cerrarla
+- 💼 **Ejecutable Windows**: Genera .exe para distribución fácil
+- 📊 **Gestión de ventas**: Conversión de pedidos a ventas con cálculo de ganancias
+- ↩️ **Reversión de ventas**: Convierte ventas de vuelta a pedidos
 
-Project title
+## 🚀 Características
 
-Description
+- **Gestión de Clientes**: CRUD completo para administrar clientes
+- **Gestión de Productos**: Administración de inventario con precios y códigos
+- **Gestión de Pedidos**: Creación y administración de pedidos con múltiples productos
+- **Gestión de Ventas**: Conversión de pedidos a ventas con cálculo automático de ganancias
+- **Interfaz Intuitiva**: Interfaz de usuario moderna con pestañas y confirmaciones
+- **Base de Datos Local**: Almacenamiento SQLite seguro y local
+- **Arquitectura MVC**: Código organizado y mantenible
+- **Ejecutable Independiente**: Genera .exe para distribución sin Python
 
-Features (based on what is currently implemented: Clients and Products)
+## 🛠️ Tecnologías Utilizadas
 
-Installation and setup
+- **Python 3.x**: Lenguaje de programación
+- **Tkinter**: Biblioteca para la interfaz gráfica
+- **Peewee ORM**: Mapeo objeto-relacional para la base de datos
+- **SQLite**: Motor de base de datos embebida
+- **PyInstaller**: Generación de ejecutables
 
-How to run
+## 📦 Instalación
 
-Project structure
+### Opción 1: Ejecutable (Recomendado)
+1. Descarga `MiniERP.exe` desde [Releases](../../releases)
+2. Ejecuta `instalar_MiniERP.bat` como administrador
+3. ¡Listo! Acceso directo en escritorio y menú inicio
 
-License (if any)
-
-Let's assume the project is in an early stage with only Client and Product management.
-
-Note: The user is planning to integrate the Pedidos (Orders) later, so we don't need to mention it in detail.
-
-Let's write the README accordingly.
-
-Mini ERP MVC
-Una aplicación de escritorio para la gestión de negocio desarrollada en Python con Tkinter, utilizando el patrón MVC (Modelo-Vista-Controlador) y SQLite como base de datos.
-
-🚀 Características
-Gestión de Clientes: CRUD completo para administrar clientes
-
-Gestión de Productos: Administración de inventario con precios y códigos
-
-Interfaz Intuitiva: Interfaz de usuario fácil de usar con pestañas
-
-Base de Datos Local: Almacenamiento SQLite para datos locales
-
-Arquitectura MVC: Código organizado y mantenible
-
-🛠️ Tecnologías Utilizadas
-Python 3.x: Lenguaje de programación
-
-Tkinter: Biblioteca para la interfaz gráfica
-
-Peewee ORM: Mapeo objeto-relacional para la base de datos
-
-SQLite: Motor de base de datos embebida
-
-📦 Instalación
-Clona el repositorio:
-
-bash
-git clone [URL_DEL_REPOSITORIO]
-cd mini-erp-mvc
-Crea un entorno virtual (recomendado):
-
-bash
+### Opción 2: Código Fuente
+```bash
+git clone https://github.com/mikel366/Mini-ERP-MVC.git
+cd Mini-ERP-MVC
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
-Instala las dependencias:
-
-bash
+venv\Scripts\activate  # Windows
 pip install -r requirements.txt
-🚀 Uso
-Ejecuta la aplicación con:
+```
 
-bash
+## 🚀 Uso
+
+### Ejecutar desde código:
+```bash
 python main.py
-La aplicación se iniciará con las siguientes pestañas disponibles:
+```
 
-👥 Clientes: Gestión de información de clientes
+### Generar ejecutable:
+```bash
+python build_exe.py
+```
 
-📦 Productos: Administración de inventario de productos
+## 📁 Estructura del Proyecto
 
-📁 Estructura del Proyecto
-text
+```
 app/
+├── configuraciones/        # Configuración de BD y modelos
+│   ├── __init__.py
+│   ├── database.py
+│   ├── inicializacion.py
+│   └── modelos.py
 ├── controladores/          # Lógica de negocio
 │   ├── __init__.py
 │   ├── clientes_controlador.py
-│   └── producto_controlador.py
-├── modelos/               # Modelos de datos y base de datos
-│   ├── __init__.py
-│   ├── modelos.py
-│   ├── database.py
-│   └── inicializacion.py
+│   ├── producto_controlador.py
+│   ├── pedido_controlador.py
+│   ├── detalle_pedido_controlador.py
+│   └── venta_controlador.py
 ├── vistas/                # Interfaces de usuario
 │   ├── __init__.py
 │   ├── clientes_vistas.py
-│   └── productos_vistas.py
-├── main.py               # Punto de entrada de la aplicación
-└── requirements.txt      # Dependencias del proyecto
-🔧 Funcionalidades Actuales
-Gestión de Clientes
-Crear nuevos clientes
+│   ├── productos_vistas.py
+│   ├── pedidos_vistas.py
+│   └── ventas_vistas.py
+├── dist/                  # Ejecutables generados
+├── main.py               # Punto de entrada
+├── build_exe.py          # Script para generar .exe
+├── requirements.txt      # Dependencias
+└── README_EJECUTABLE.md  # Guía de ejecutables
+```
 
-Listar todos los clientes
+## 🔧 Funcionalidades Completas
 
-Editar información de clientes existentes
+### 👥 Gestión de Clientes
+- ✅ Crear, editar, eliminar clientes
+- ✅ Búsqueda y filtrado
+- ✅ Eliminación masiva con confirmación
+- ✅ Validaciones de entrada
 
-Eliminar clientes
+### 📦 Gestión de Productos
+- ✅ CRUD completo de productos
+- ✅ Códigos únicos y precios
+- ✅ Control de inventario
+- ✅ Búsqueda avanzada
 
-Búsqueda de clientes
+### 📋 Gestión de Pedidos
+- ✅ Creación de pedidos por cliente
+- ✅ Agregar múltiples productos
+- ✅ Cálculo automático de totales
+- ✅ Conversión a ventas
 
-Gestión de Productos
-Registrar nuevos productos
+### 💰 Gestión de Ventas
+- ✅ Conversión automática desde pedidos
+- ✅ Cálculo de ganancias
+- ✅ Estadísticas y reportes
+- ✅ Reversión a pedidos
+- ✅ Exportación de datos
 
-Actualizar información de productos
+## 🎯 Flujo de Trabajo
 
-Listar productos con búsqueda
+1. **Registrar Clientes y Productos**
+2. **Crear Pedidos** → Seleccionar cliente y agregar productos
+3. **Convertir a Ventas** → Genera ganancia automáticamente
+4. **Gestionar Ventas** → Ver estadísticas, revertir si es necesario
 
-Eliminar productos
+## 📊 Características Técnicas
 
-Control de inventario
+- **Base de datos relacional** con integridad referencial
+- **Eliminación en cascada** para mantener consistencia
+- **Transacciones atómicas** para operaciones seguras
+- **Validaciones de entrada** en todos los formularios
+- **Manejo de errores** robusto
+- **Interfaz responsiva** con actualización automática
 
-📋 Próximas Funcionalidades
-Módulo de Pedidos y Compras
+## 🔄 Versiones
 
-Módulo de Ventas
+### v2.0 (Actual)
+- Sistema ERP completo
+- Ejecutable Windows
+- Eliminación masiva
+- Gestión de ventas
 
-Reportes y estadísticas
+### v1.0
+- Gestión básica de clientes y productos
 
-Sistema de usuarios y permisos
+## 🤝 Contribución
 
-Backup de base de datos
+1. Fork del proyecto
+2. Crear rama: `git checkout -b feature/AmazingFeature`
+3. Commit: `git commit -m 'Add AmazingFeature'`
+4. Push: `git push origin feature/AmazingFeature`
+5. Abrir Pull Request
 
-🤝 Contribución
-Las contribuciones son bienvenidas. Para contribuir:
+## 📄 Licencia
 
-Haz un fork del proyecto
+Este proyecto está bajo la Licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
 
-Crea una rama para tu feature (git checkout -b feature/AmazingFeature)
+## 📞 Soporte
 
-Commit tus cambios (git commit -m 'Add some AmazingFeature')
-
-Push a la rama (git push origin feature/AmazingFeature)
-
-Abre un Pull Request
-
-📄 Licencia
-Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
-
-📞 Contacto
-Si tienes preguntas o sugerencias, no dudes en abrir un issue o contactar al desarrollador.
-
-Nota: Esta es una versión inicial de la aplicación. Algunas funcionalidades como el módulo de pedidos están en desarrollo y se integrarán en futuras versiones.# Mini-ERP-MVC
-# Mini-ERP-MVC
-# Mini-ERP-MVC
+- 🐛 [Reportar bugs](../../issues)
+- 💡 [Solicitar features](../../issues)
+- 📖 [Documentación completa](README_EJECUTABLE.md)

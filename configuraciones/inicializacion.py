@@ -1,17 +1,14 @@
-from .database import *
+from .database import db, conectar_db, cerrar_conexion
 from .modelos import Estado, Cliente, Producto, Pedido, DetallePedido, Venta
 
 def inicializar_bd():
     """Inicializa la base de datos y crea las tablas"""
-    from .database import conectar_db, cerrar_conexion
-    
     try:
         # Conectar a la base de datos
         conectar_db()
         
-        # Crear tablas
-        with db:
-            db.create_tables([Estado, Cliente, Producto, Pedido, DetallePedido, Venta])
+        # Crear tablas en el orden correcto (padres primero)
+        db.create_tables([Estado, Cliente, Producto, Pedido, DetallePedido, Venta], safe=True)
         
         # Insertar estados predeterminados
         estados_predeterminados = [
@@ -19,7 +16,6 @@ def inicializar_bd():
             {'nombre': 'Completado'},
             {'nombre': 'Cancelado'}
         ]
-        
         for estado in estados_predeterminados:
             Estado.get_or_create(**estado)
         

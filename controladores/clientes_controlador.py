@@ -1,10 +1,11 @@
 # app/controladores/usuario_controlador.py
-from modelos.modelos import Cliente
+from typing import List
+from configuraciones.modelos import Cliente, Pedido
 from peewee import DoesNotExist
 
 class ClientesControlador:
     @staticmethod
-    def registrar_cliente(nombre):
+    def registrar_cliente(nombre: str):
         try:
             # Validar que el nombre no esté vacío
             if not nombre or not nombre.strip():
@@ -23,9 +24,9 @@ class ClientesControlador:
             return False, f"Error al registrar usuario: {e}"
         
     @staticmethod
-    def listar_clientes(busqueda=None):
+    def listar_clientes(busqueda: str = None) -> List[Cliente]:
         try:
-            query = Cliente.select()
+            query: List[Cliente] = Cliente.select()
             if busqueda:
                 query = query.where(Cliente.nombre.contains(busqueda))
             return [(cliente.id, cliente.nombre) for cliente in query]
@@ -34,7 +35,7 @@ class ClientesControlador:
             return []
     
     @staticmethod
-    def obtener_cliente(id):
+    def obtener_cliente(id: int) -> Cliente:
         try:
             return Cliente.get_by_id(id)
         except DoesNotExist:
@@ -44,13 +45,13 @@ class ClientesControlador:
             return None
         
     @staticmethod
-    def editar_cliente(id, nombre):
+    def editar_cliente(id: int, nombre: str):
         try:
             # Validar que el nombre no esté vacío
             if not nombre or not nombre.strip():
                 return False, "El nombre no puede estar vacío"
             
-            cliente = Cliente.get_by_id(id)
+            cliente: Cliente = Cliente.get_by_id(id)
             cliente.nombre = nombre.strip()
             cliente.save()
             return True, "Cliente actualizado exitosamente"
@@ -61,9 +62,9 @@ class ClientesControlador:
             return False, f"Error al editar cliente: {e}"
         
     @staticmethod
-    def eliminar_cliente(id):
+    def eliminar_cliente(id: int):
         try:
-            cliente = Cliente.get_by_id(id)
+            cliente: Cliente = Cliente.get_by_id(id)
             
             # Verificar si el cliente tiene pedidos asociados
             if cliente.pedidos.count() > 0:
@@ -78,17 +79,17 @@ class ClientesControlador:
             return False, f"Error al eliminar cliente: {e}"
 
     @staticmethod
-    def eliminar_todos():
+    def eliminar_todos() -> bool:
         try:
-            # Solo eliminar clientes sin pedidos
-            clientes_sin_pedidos = Cliente.select().where(~(Cliente.id.in_(
-                Cliente.select().join(Pedido).group_by(Cliente.id)
-            )))
-            
-            count = clientes_sin_pedidos.count()
-            clientes_sin_pedidos.delete().execute()
-            
-            return True, f"{count} clientes sin pedidos eliminados"
+            from configuraciones.database import db
+            with db.atomic():
+                # Eliminar en orden correcto para respetar las relaciones
+                from configuraciones.modelos import DetallePedido, Pedido, Venta
+                DetallePedido.delete().execute()
+                Venta.delete().execute()
+                Pedido.delete().execute()
+                Cliente.delete().execute()
+                return True
         except Exception as e:
             print(f"Error al eliminar todos los clientes: {e}")
-            return False, f"Error al eliminar clientes: {e}"
+            return False
