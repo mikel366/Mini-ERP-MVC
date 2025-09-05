@@ -11,7 +11,7 @@ mkdir "%INSTALL_DIR%" 2>nul
 
 REM Copiar ejecutable
 echo Copiando archivos...
-copy "MiniERP.exe" "%INSTALL_DIR%\MiniERP.exe"
+copy "dist\MiniERP.exe" "%INSTALL_DIR%\MiniERP.exe"
 
 REM Crear acceso directo en el escritorio
 echo Creando acceso directo en el escritorio...
